@@ -4,15 +4,16 @@ from .const import WAV_COIN
 
 from typing import List
 
+
 class StupidWalletAPI(BaseAPI):
     def __init__(self, token: str):
         super().__init__(token, "https://st.svat.dev")
 
-    async def get_balance(self, coin_id: int = WAV_COIN) -> int:
+    async def get_balance(self, coin_id: int = WAV_COIN) -> dict:
         """<https://st.svat.dev/docs#/User%20interaction/get_balance_user_get_balance_get>"""
         response = await self._make_request("GET", "/user/get_balance", {"coin_id": coin_id})
-        return response.get("coin_amount")
-    
+        return response
+
     # Cheques
 
     async def cheque_from_id(self, id: str) -> Cheque:
@@ -57,9 +58,10 @@ class StupidWalletAPI(BaseAPI):
 
     async def get_invoice_data(self, invoice_unique_hash: str) -> Invoice:
         """<https://st.svat.dev/docs#/Invoice%20thing/invoice_data_invoice_get_invoice_data_get>"""
-        response = await self._make_request("GET", "/invoice/get_invoice_data", {"invoice_unique_hash": invoice_unique_hash})
+        response = await self._make_request("GET", "/invoice/get_invoice_data",
+                                            {"invoice_unique_hash": invoice_unique_hash})
         return Invoice(response)
-    
+
     async def pay_invoice(self, invoice_unique_hash: str) -> Invoice:
         """<https://st.svat.dev/docs#/Invoice%20thing/pay_invoice_invoice_pay_invoice_post>"""
         await self._make_request(
@@ -69,7 +71,8 @@ class StupidWalletAPI(BaseAPI):
         )
         return await self.get_invoice_data(invoice_unique_hash)
 
-    async def create_invoice(self, coin_id: int, coin_amount: int, expiration_time: int = None, comment: str = None, return_url: str = None) -> Invoice:
+    async def create_invoice(self, coin_id: int, coin_amount: int, expiration_time: int = None, comment: str = None,
+                             return_url: str = None) -> Invoice:
         """
         <https://st.svat.dev/docs#/Invoice%20thing/create_new_invoice_invoice_create_invoice_post>
         expiration_time: in minutes (default: 500_000)
@@ -77,10 +80,11 @@ class StupidWalletAPI(BaseAPI):
         response = await self._make_request(
             "POST",
             "/invoice/create_invoice",
-            {"coin_id": coin_id, "coin_amount": coin_amount, "expiration_time": expiration_time or 500_000, "comment": comment or "", "return_url": return_url or ""}
+            {"coin_id": coin_id, "coin_amount": coin_amount, "expiration_time": expiration_time or 500_000,
+             "comment": comment or "", "return_url": return_url or ""}
         )
         return await self.get_invoice_data(response.get("invoice_unique_hash"))
-    
+
     async def delete_invoice(self, invoice_unique_hash: str):
         """<https://st.svat.dev/docs#/Invoice%20thing/delete_invoice_invoice_delete_invoice_delete>"""
         await self._make_request(
@@ -88,3 +92,23 @@ class StupidWalletAPI(BaseAPI):
             "/invoice/delete_invoice",
             {"invoice_unique_hash": invoice_unique_hash}
         )
+
+    # Custom methods
+    async def get_balance_coin(self, coin_id: int = 1) -> int:
+        balance = await self.get_balance(coin_id)
+        return balance.get('coin_amount')
+
+    async def test_apikey(self) -> bool:
+        try:
+            response = await self.get_balance()
+            details = response.get('detail')
+            return details is None or details != "Invalid API key"
+        except Exception:
+            return False
+
+    async def create_cheques_on_all_wavs(self, coin_id: int, coin_amount: int):
+        balance = await self.get_balance_coin()
+        for _ in range(int(balance / coin_amount)):
+            await self.create_cheque(coin_id=coin_id, coin_amount=coin_amount)
+
+
