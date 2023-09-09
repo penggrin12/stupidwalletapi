@@ -16,8 +16,8 @@ class StupidWalletAPI(BaseAPI):
 
     # Cheques
 
-    async def cheque_from_id(self, id: str) -> Cheque:
-        result = Cheque.from_info_cheque(await self._make_request("GET", "/user/info_cheque", {"cheque_id": id}))
+    async def cheque_from_id(self, cheque_id: str) -> Cheque:
+        result = Cheque.from_info_cheque(await self._make_request("GET", "/user/info_cheque", {"cheque_id": cheque_id}))
         result._cheque_id = id
         return result
 
@@ -111,4 +111,13 @@ class StupidWalletAPI(BaseAPI):
         for _ in range(int(balance / coin_amount)):
             await self.create_cheque(coin_id=coin_id, coin_amount=coin_amount)
 
-
+    async def claim_all_cheques(self) -> int:
+        claimed_cheques = 0
+        while True:
+            cheques = await self.my_cheques()
+            if not cheques:
+                break
+            for cheque in cheques:
+                await self.claim_cheque(cheque_id=cheque.id)
+                claimed_cheques += 1
+        return claimed_cheques
