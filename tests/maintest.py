@@ -4,8 +4,8 @@ import stupidwalletapi
 
 
 async def testing_all():
-    test_password = "123testтест!./:"
-    test_comment = "123testтест!:/.;"
+    test_password = "123testтест!./:p"
+    test_comment = "123testтест!:/.;p"
     test_return_url = "https://t.me/penggrin"
     test_amount = 1
     swapi = stupidwalletapi.StupidWalletAPI(input("token: "))
