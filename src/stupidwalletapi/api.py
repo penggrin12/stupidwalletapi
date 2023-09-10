@@ -37,7 +37,7 @@ class StupidWalletAPI(BaseAPI):
             "POST",
             "/user/create_cheque",
             {"coin_id": coin_id, "coin_amount": coin_amount,
-                "password": password or "", "comment": comment or ""}
+             "password": password or "", "comment": comment or ""}
         )
         return await self.cheque_from_id(response.get("cheque_id"))
 
