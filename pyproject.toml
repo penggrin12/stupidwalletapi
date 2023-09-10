@@ -5,7 +5,10 @@ build-backend = "hatchling.build"
 [project]
 name = "stupidwalletapi"
 version = "1.0.0"
-authors = [{ name = "Penggrin", email = "miner.sidor@gmail.com" }]
+authors = [
+  { name = "Penggrin", email = "miner.sidor@gmail.com" },
+  { name = "MIPOHBOPOHIH", email = "voroninmiron07@gmail.com" },
+]
 description = "Python StupidWallet API"
 readme = "README.md"
 requires-python = ">=3.8"
