@@ -18,7 +18,7 @@ class StupidWalletAPI(BaseAPI):
 
     async def cheque_from_id(self, cheque_id: str) -> Cheque:
         result = Cheque.from_info_cheque(await self._make_request("GET", "/user/info_cheque", {"cheque_id": cheque_id}))
-        result._cheque_id = id
+        result._cheque_id = cheque_id
         return result
 
     async def my_cheques(self) -> List[Cheque]:
