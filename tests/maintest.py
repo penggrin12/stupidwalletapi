@@ -24,8 +24,12 @@ async def testing_all():
     assert (cheque2.id == cheque1.id)
     assert (cheque2.is_activated)
 
-    invoice1 = await swapi.create_invoice(stupidwalletapi.WAV_COIN, test_amount, comment=test_comment,
-                                          return_url=test_return_url)
+    invoice1 = await swapi.create_invoice(
+        stupidwalletapi.WAV_COIN,
+        test_amount,
+        comment=test_comment,
+        return_url=test_return_url
+    )
     assert (invoice1.amount == test_amount)
     assert (invoice1.coin_amount == invoice1.amount)
     assert (invoice1.coin_id == stupidwalletapi.WAV_COIN)
