@@ -7,7 +7,7 @@ from typing import List
 
 class StupidWalletAPI(BaseAPI):
     def __init__(self, token: str):
-        super().__init__(token, "https://st.svat.dev")
+        super().__init__(token, "https://sw.svat.dev")
 
     async def get_balance(self, coin_id: int = WAV_COIN) -> dict:
         """<https://st.svat.dev/docs#/User%20interaction/get_balance_user_get_balance_get>"""
