@@ -13,5 +13,6 @@ class BaseAPI:
     async def _make_request(self, method, url, params=None) -> dict:
         async with httpx.AsyncClient() as client:
             response = await client.request(method, self.BASE_URL + url, params=params, headers=self._headers)
-            print(response.status_code, response.json())
-            return response.json()
+            got = response.json()
+            print(response.status_code, got)
+            return got
