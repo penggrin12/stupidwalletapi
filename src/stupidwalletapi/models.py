@@ -164,4 +164,5 @@ class Invoice:
     @property
     def pay_history(self) -> Union[List[PayHistoryItem], List]:
         """Only works when cheque is found with get_invoice_data"""
-        return [PayHistoryItem(data) for data in self._pay_history] if self._pay_history else []
+        return [PayHistoryItem(
+            data) for data in self._pay_history] if self._pay_history else []

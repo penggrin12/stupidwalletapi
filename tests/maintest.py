@@ -1,5 +1,6 @@
-import stupidwalletapi
 import asyncio
+
+import stupidwalletapi
 
 
 async def testing_all():
@@ -16,12 +17,12 @@ async def testing_all():
     assert (cheque1.coin_id == stupidwalletapi.WAV_COIN)
     assert (cheque1.cheque_id == cheque1.id)
     assert (cheque1.comment == test_comment)
-    assert (cheque1.is_activated == False)
+    assert (cheque1.is_activated is False)
 
     cheque2 = await swapi.claim_cheque(cheque1.id, test_password)
 
     assert (cheque2.id == cheque1.id)
-    assert (cheque2.is_activated == True)
+    assert (cheque2.is_activated)
 
     invoice1 = await swapi.create_invoice(stupidwalletapi.WAV_COIN, test_amount, comment=test_comment,
                                           return_url=test_return_url)
