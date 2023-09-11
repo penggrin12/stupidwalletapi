@@ -14,6 +14,12 @@ class StupidWalletAPI(BaseAPI):
         response = await self._make_request("GET", "/user/get_balance", {"coin_id": coin_id})
         return response.get("coin_amount")
 
+    async def test_apikey(self) -> bool:
+        try:
+            return (await self.get_balance(WAV_COIN)) is not None
+        except Exception:
+            return False
+
     # Cheques
 
     async def cheque_from_id(self, cheque_id: str) -> Cheque:
@@ -95,26 +101,21 @@ class StupidWalletAPI(BaseAPI):
         )
 
     # Custom methods
-    async def test_apikey(self) -> bool:
-        try:
-            response = await self.get_balance()
-            details = response.get('detail')
-            return details is None or details != "Invalid API key"
-        except Exception:
-            return False
-
-    async def create_cheques_on_all_wavs(self, coin_id: int, coin_amount: int):
-        balance = await self.get_balance_coin()
-        for _ in range(int(balance / coin_amount)):
+    async def create_cheques_on_all_coins(self, coin_id: int, coin_amount: int):
+        for _ in range((await self.get_balance(coin_id)) / coin_amount):
             await self.create_cheque(coin_id=coin_id, coin_amount=coin_amount)
 
     async def claim_all_cheques(self) -> int:
         claimed_cheques = 0
+
         while True:
             cheques = await self.my_cheques()
+
             if not cheques:
                 break
+
             for cheque in cheques:
                 await self.claim_cheque(cheque_id=cheque.id)
                 claimed_cheques += 1
+
         return claimed_cheques
