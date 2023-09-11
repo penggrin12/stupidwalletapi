@@ -10,6 +10,8 @@ async def testing_all():
     test_amount = 1
     swapi = stupidwalletapi.StupidWalletAPI(input("token: "))
 
+    assert (await swapi.test_apikey())
+
     cheque1 = await swapi.create_cheque(stupidwalletapi.WAV_COIN, test_amount, test_password, test_comment)
 
     assert (cheque1.amount == test_amount)
