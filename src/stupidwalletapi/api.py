@@ -102,7 +102,7 @@ class StupidWalletAPI(BaseAPI):
 
     # Custom methods
     async def create_cheques_on_all_coins(self, coin_id: int, coin_amount: int):
-        for _ in range((await self.get_balance(coin_id)) / coin_amount):
+        for _ in range(int((await self.get_balance(coin_id)) / coin_amount)):
             await self.create_cheque(coin_id=coin_id, coin_amount=coin_amount)
 
     async def claim_all_cheques(self) -> int:
