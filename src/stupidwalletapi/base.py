@@ -14,16 +14,10 @@ class BaseAPI:
         }
 
     async def _make_request(self, method, url, params=None) -> dict:
-        print("getting lock")
         async with self.lock:
-            print("got lock")
             async with httpx.AsyncClient() as client:
-                print("got client")
                 response = await client.request(method, self.BASE_URL + url, params=params, headers=self._headers)
-                print("got response")
                 print(response.status_code, response.json())
 
-            print("ok, sleep")
             await asyncio.sleep(0.42)
-            print("sleep done, returning")
             return response.json()
