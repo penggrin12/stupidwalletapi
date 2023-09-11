@@ -9,10 +9,10 @@ class StupidWalletAPI(BaseAPI):
     def __init__(self, token: str):
         super().__init__(token, "https://sw.svat.dev")
 
-    async def get_balance(self, coin_id: int = WAV_COIN) -> dict:
+    async def get_balance(self, coin_id: int = WAV_COIN) -> int:
         """<https://st.svat.dev/docs#/User%20interaction/get_balance_user_get_balance_get>"""
         response = await self._make_request("GET", "/user/get_balance", {"coin_id": coin_id})
-        return response
+        return response.get("coin_amount")
 
     # Cheques
 
@@ -95,10 +95,6 @@ class StupidWalletAPI(BaseAPI):
         )
 
     # Custom methods
-    async def get_balance_coin(self, coin_id: int = 1) -> int:
-        balance = await self.get_balance(coin_id)
-        return balance.get('coin_amount')
-
     async def test_apikey(self) -> bool:
         try:
             response = await self.get_balance()
