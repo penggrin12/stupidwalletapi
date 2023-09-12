@@ -47,5 +47,18 @@ async def testing_all():
 
     await swapi.delete_invoice(invoice1.id)
 
+    balance1 = await swapi.get_balance(stupidwalletapi.WAV_COIN)
+
+    await swapi.create_cheques_on_all_coins(stupidwalletapi.WAV_COIN, test_amount)
+
+    balance2 = await swapi.get_balance(stupidwalletapi.WAV_COIN)
+
+    await swapi.claim_all_cheques()
+
+    balance3 = await swapi.get_balance(stupidwalletapi.WAV_COIN)
+
+    assert (balance1 != balance2)
+    assert (balance1 == balance3)
+
 
 asyncio.run(testing_all())
