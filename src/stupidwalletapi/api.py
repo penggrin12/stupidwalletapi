@@ -119,3 +119,6 @@ class StupidWalletAPI(BaseAPI):
                 claimed_cheques += 1
 
         return claimed_cheques
+
+
+    # пися попа
