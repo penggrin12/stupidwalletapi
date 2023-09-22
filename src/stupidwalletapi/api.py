@@ -120,5 +120,3 @@ class StupidWalletAPI(BaseAPI):
 
         return claimed_cheques
 
-
-    # пися попа

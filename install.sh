@@ -8,3 +8,5 @@ cd ..
 
 echo вроде все, чекай
 pip show stupidwalletapi
+
+echo все иди делай свои дудосы лошня
