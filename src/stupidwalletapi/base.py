@@ -3,6 +3,13 @@ import asyncio
 import httpx
 
 
+class SWError(Exception):
+  def __init__(self, message: str):
+    self.message = message
+    super().__init__(message)
+    
+
+
 class BaseAPI:
     def __init__(self, token: str, base_url: str):
         self.TOKEN = token
@@ -20,4 +27,7 @@ class BaseAPI:
                 print(url, response.status_code, response.json())
 
             await asyncio.sleep(0.42)
-            return response.json()
+            if (response.json()).get('detail') is None:
+                return response.json()
+            else:
+                raise SWError((response.json()).get('detail'))
