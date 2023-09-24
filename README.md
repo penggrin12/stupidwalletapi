@@ -2,7 +2,7 @@
 
 Данный репозиторий создан для API @stupidwallet_bot
 
-Документация находится в "wiki" репозитория https://github.com/penggrin12/stupidwalletapi/
+Документация находится в "wiki" [репозитория](https://github.com/penggrin12/stupidwalletapi/)
 
 Для установки на iOS установите git и bash, 
 а затем инициализируйте "bash iosinstall.sh".
