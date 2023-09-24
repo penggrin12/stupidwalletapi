@@ -10,7 +10,7 @@ authors = [
   { name = "MIPOHBOPOHIH", email = "voroninmiron07@gmail.com" },
   { name = "theNcore (aka Nefrit9087)", email = "l4499313@gmail.com" }
 ]
-description = "Python StupidWallet API. API for @stupidwallet_bot"
+description = "Python API for @stupidwallet_bot"
 readme = "README.md"
 requires-python = ">=3.8"
 dependencies = ["httpx"]
