@@ -4,12 +4,13 @@ build-backend = "hatchling.build"
 
 [project]
 name = "stupidwalletapi"
-version = "1.0.0"
+version = "1.3.0"
 authors = [
   { name = "Penggrin", email = "miner.sidor@gmail.com" },
   { name = "MIPOHBOPOHIH", email = "voroninmiron07@gmail.com" },
+  { name = "theNcore (aka Nefrit9087)", email = "l4499313@gmail.com" }
 ]
-description = "Python StupidWallet API"
+description = "Python API for @stupidwallet_bot"
 readme = "README.md"
 requires-python = ">=3.8"
 dependencies = ["httpx"]
@@ -21,3 +22,7 @@ classifiers = [
 
 [project.urls]
 "Homepage" = "https://github.com/penggrin12/stupidwalletapi"
+"Penggrin (author)" = "https://t.me/penggrin"
+"MipohTG" = "https://t.me/y9mphbhh"
+"theNcore aka Nefit9087" = "https://t.me/thencore_new"
+
