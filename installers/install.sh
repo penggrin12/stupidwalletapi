@@ -1,12 +1,12 @@
-echo ставим модуль
+echo Bulding...
 python -m build
 
-echo щас ставится уже жди залупа
+echo Installing...
 cd dist
 pip install stupidwalletapi-1.0.0-py3-none-any.whl --force-reinstall --break-system-packages
 cd ..
 
-echo вроде все, чекай
+echo Here you go
 pip show stupidwalletapi
 
-echo все иди делай свои дудосы лошня
+echo Now you can DDoS Telegram datacenters
