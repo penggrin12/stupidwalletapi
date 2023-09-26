@@ -10,7 +10,7 @@
 пример использования в директории tests.
 
 # Пример кода
-```pyhon
+```python
 import asyncio
 import stupidwalletapi
 
