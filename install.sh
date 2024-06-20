@@ -1,12 +1,12 @@
-echo Bulding...
+echo строим дом
 python -m build
 
-echo Installing...
+echo установка каркаса
 cd dist
 pip install stupidwalletapi-1.0.0-py3-none-any.whl --force-reinstall --break-system-packages
 cd ..
 
-echo Here you go
+echo ты здесь
 pip show stupidwalletapi
 
-echo Now you can DDoS Telegram datacenters
+echo тепер можешь дудосить тгк каналы квадроберов
