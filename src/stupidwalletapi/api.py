@@ -6,7 +6,7 @@ from .const import WAV_COIN
 
 class StupidWalletAPI(BaseAPI):
     def __init__(self, token: str):
-        super().__init__(token, "https://sw.svat.dev")
+        super().__init__(token, "https://swapi.physm.org")
 
     async def get_balance(self, coin_id: int = WAV_COIN) -> int:
         response = await self._make_request("GET",
